@@ -1,4 +1,4 @@
-library core;
+library custompaint_module;
 
 /// A Calculator.
 class Calculator {

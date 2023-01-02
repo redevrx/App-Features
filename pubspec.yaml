@@ -44,6 +44,8 @@ dependencies:
 #  modules
   comic:
     path: ./features/comic
+  custompaint_module:
+    path: ./features/custompaint_module
 
 dev_dependencies:
   flutter_test:
