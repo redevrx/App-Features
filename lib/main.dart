@@ -1,5 +1,7 @@
-import 'package:comic/screens/home/home_screen.dart';
+
+import 'package:chat_bot/screen/chat_bot.dart';
 import 'package:core/core/themes/theme_change.dart';
+import 'package:custompaint_module/screen/custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ThemeChange>(
-      create: (context) => ThemeChange(ThemeData.dark(useMaterial3: true)),
+      create: (context) => ThemeChange(ThemeData.light(useMaterial3: true)),
       child: const ThemeWrapaper(),
     );
   }
@@ -27,7 +29,7 @@ class ThemeWrapaper extends StatelessWidget {
     // debugInvertOversizedImages = true;
     return MaterialApp(
       theme: Provider.of<ThemeChange>(context).getTheme(),
-      home: const HomeScreen(),
+      home: const ChatBotScreen(),
     );
   }
 }

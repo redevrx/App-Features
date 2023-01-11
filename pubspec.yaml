@@ -46,6 +46,8 @@ dependencies:
     path: ./features/comic
   custompaint_module:
     path: ./features/custompaint_module
+  chat_bot:
+    path: ./features/chat_bot
 
 dev_dependencies:
   flutter_test:
