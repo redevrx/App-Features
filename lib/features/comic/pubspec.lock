@@ -33,21 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
-  chat_bot:
-    dependency: "direct main"
-    description:
-      path: "lib/features/chat_bot"
-      relative: true
-    source: path
-    version: "0.0.1"
-  chat_gpt_sdk:
-    dependency: transitive
-    description:
-      name: chat_gpt_sdk
-      sha256: a76ccc909c0aaed9e8339ad3a34c5d7057ddfd2ab46799a2ac48788cd876998c
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.3"
   clock:
     dependency: transitive
     description:
@@ -64,43 +49,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.1"
-  comic:
-    dependency: "direct main"
-    description:
-      path: "lib/features/comic"
-      relative: true
-    source: path
-    version: "0.0.1"
   core:
     dependency: "direct main"
     description:
-      path: "lib/features/core"
+      path: "../core"
       relative: true
     source: path
     version: "0.0.1"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
-  custompaint_module:
-    dependency: "direct main"
-    description:
-      path: "lib/features/custompaint_module"
-      relative: true
-    source: path
-    version: "0.0.1"
-  dio:
-    dependency: transitive
-    description:
-      name: dio
-      sha256: "347d56c26d63519552ef9a569f2a593dda99a81fdbdff13c584b7197cfe05059"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.2"
   fake_async:
     dependency: transitive
     description:
@@ -123,7 +78,7 @@ packages:
     source: hosted
     version: "2.0.1"
   flutter_svg:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_svg
       sha256: f991fdb1533c3caeee0cdc14b04f50f0c3916f0dbcbc05237ccbe4e3c6b93f3f
@@ -135,14 +90,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  http_parser:
-    dependency: transitive
-    description:
-      name: http_parser
-      sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.2"
   js:
     dependency: transitive
     description:
@@ -276,14 +223,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
-  typed_data:
-    dependency: transitive
-    description:
-      name: typed_data
-      sha256: facc8d6582f16042dd49f2463ff1bd6e2c9ef9f3d5da3d9b087e244a7b564b3c
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.2"
   vector_graphics:
     dependency: transitive
     description:
