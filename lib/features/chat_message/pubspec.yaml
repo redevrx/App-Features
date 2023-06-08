@@ -1,15 +1,18 @@
-name: app
-description: A new Flutter package project.
+name: chat_message
+description: Create Chat Message App with supabase
 version: 0.0.1
 homepage:
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.0.3 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
+  core:
+    path: ../core
 
 dev_dependencies:
   flutter_test:

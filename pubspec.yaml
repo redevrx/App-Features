@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.0.3 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -48,6 +48,8 @@ dependencies:
     path: ./lib/features/custompaint_module
   chat_bot:
     path: ./lib/features/chat_bot
+  chat_message:
+    path: ./lib/features/chat_message
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,8 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/chat_message/icons
+    - assets/chat_message/images
 
   fonts:
     - family: Gordita
