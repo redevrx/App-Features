@@ -73,10 +73,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/icons/
-    - assets/images/
-    - assets/chat_message/icons
-    - assets/chat_message/images
+#    - assets/icons/
+#    - assets/images/
+    - assets/chat/icons/
+    - assets/chat/images/
 
   fonts:
     - family: Gordita
