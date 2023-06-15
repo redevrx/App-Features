@@ -15,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => AuthProvider(),
-      child: RegisterView(),
+      child: const RegisterView(),
     );
   }
 }
@@ -339,7 +339,7 @@ class _RegisterViewState extends State<RegisterView> {
                 final auth = Provider.of<AuthProvider>(context, listen: false);
                 auth.onSignUp(success: (){
                   ///register success
-                  print('register successes :${auth.authResponse.user?.toJson()}');
+                  print('register successes :${auth.authResponse.session?.toJson()}');
                 }, failure: (){
                   ///register error
                   print('register error');

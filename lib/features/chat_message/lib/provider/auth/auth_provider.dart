@@ -21,24 +21,27 @@ class AuthProvider with ChangeNotifier {
   AuthResponse get authResponse => _authResponse ?? AuthResponse();
 
   void onSignUp({required Function() success, required Function() failure}) async {
-    print("object");
-    print(_singUpData.email);
-    print(_singUpData.password);
     if(!_singUpData.email.validEmail() || singUpData.isNull()){
 
       return;
     }
 
     final response = await repo.onSingUpWithEmailPassword(_singUpData);
-    print("session :${response.user?.toJson()}");
     if (response.user?.email == null) {
       failure();
 
       return;
     }
-    success();
-    _authResponse = response;
+    ///first login after create account
+    final mResponse = await repo.onSingIn(_singUpData);
+
+    ///save user info data
+    repo.onSaveUserInfo(response.user!, username: _singUpData.username);
+    _authResponse = mResponse;
+    _singUpData = SingUpData();
     notifyListeners();
+
+    success();
   }
 
   void onCheckScreenAuth({required Function() auth,required Function() unAuth}){
@@ -51,7 +54,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   ///sing up data
-  final _singUpData = SingUpData();
+  SingUpData _singUpData = SingUpData();
   SingUpData get singUpData => _singUpData;
 
   void onUserNameChange(String? it){
@@ -70,9 +73,29 @@ class AuthProvider with ChangeNotifier {
 
   void onPasswordChange(String? it){
     if(it != null){
+      print("password change $it");
       _singUpData.password = it;
       notifyListeners();
     }
+  }
+
+  void onSignIn({required Function() success,required Function() failure}) async {
+    if(_singUpData.password == "" || _singUpData.email == ""){
+      print("password null ${_singUpData.password} :${_singUpData.email}");
+      return;
+    }
+
+    print("login");
+    final response = await repo.onSingIn(_singUpData);
+    if(response.user == null){
+      failure();
+
+      return;
+    }
+
+    _authResponse = response;
+    notifyListeners();
+    success();
   }
 
 }

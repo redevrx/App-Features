@@ -1,13 +1,28 @@
+import 'package:chat_message/provider/auth/auth_provider.dart';
 import 'package:chat_message/screen/auth/register_screen.dart';
 import 'package:chat_message/widget/social_button.dart';
 import 'package:core/core/constants/divider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../widget/sliver_sized_box.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => AuthProvider(),
+      child: const LoginView(),
+    );
+  }
+}
+
+
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
   
   void toRegisterScreen({required BuildContext context}){
     Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreen(),));
@@ -100,6 +115,8 @@ class LoginScreen extends StatelessWidget {
                                padding:
                                const EdgeInsets.only(left: kDefault / 2),
                                child: TextFormField(
+                                 onChanged: (it) => Provider.of<AuthProvider>(context,listen: false)
+                                 .onEmailChange(it),
                                  decoration: const InputDecoration(
                                      enabledBorder: InputBorder.none,
                                      focusedBorder: InputBorder.none,
@@ -161,6 +178,8 @@ class LoginScreen extends StatelessWidget {
                                padding:
                                const EdgeInsets.only(left: kDefault / 2),
                                child: TextFormField(
+                                 onChanged: (it) => Provider.of<AuthProvider>(context,listen: false)
+                                     .onPasswordChange(it),
                                  decoration: const InputDecoration(
                                      enabledBorder: InputBorder.none,
                                      focusedBorder: InputBorder.none,
@@ -240,7 +259,16 @@ class LoginScreen extends StatelessWidget {
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: kDefault),
                      child: ElevatedButton(
-                       onPressed: (){},
+                       onPressed: (){
+                        final auth =  Provider.of<AuthProvider>(context,listen: false);
+                        auth.onSignIn(success: (){
+                          ///home page
+                          print("home page");
+                        }, failure: (){
+                          ///error
+                          print("error");
+                        });
+                       },
                        style: ElevatedButton.styleFrom(
                            backgroundColor: Colors.black,
                            shape: RoundedRectangleBorder(
