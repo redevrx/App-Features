@@ -24,7 +24,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
 
   void sendMessage(String message) async{
-    final request = CompleteText(prompt: message, model: Model.textDavinci3,maxTokens: 2000);
+    final request = CompleteText(prompt: message, model: TextDavinci3Model(),maxTokens: 2000);
     final response = await openAI.onCompletion(request: request);
     setState(() {
       messages.add(MessageModel(true,"${response?.choices.last.text}"));

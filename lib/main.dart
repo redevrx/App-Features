@@ -1,5 +1,6 @@
 import 'package:app_feature/features/chat_message/lib/screen/auth/login_screen.dart';
 import 'package:app_feature/features/chat_message/lib/screen/auth/register_screen.dart';
+import 'package:app_feature/features/chat_message/lib/screen/home/home_screen.dart';
 import 'package:app_feature/features/chat_message/lib/screen/splash/ChatSplashScreen.dart';
 import 'package:core/core/constants/colors.dart';
 import 'package:core/core/themes/theme_change.dart';
@@ -10,7 +11,10 @@ import 'package:app_feature/features/chat_message/lib/provider/auth/auth_provide
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize();
+  await Supabase.initialize(
+    url: 'https://bhgsevlzkbiboersdors.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoZ3Nldmx6a2JpYm9lcnNkb3JzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODYyMTI4MTIsImV4cCI6MjAwMTc4ODgxMn0.0RYHwTSCk2sdqKCI3flUzd92W65cDpQZDVQSIgnsuGM'
+  );
   runApp(const MyApp());
 }
 

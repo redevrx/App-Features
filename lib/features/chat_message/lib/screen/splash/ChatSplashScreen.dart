@@ -3,6 +3,7 @@ import 'package:chat_message/screen/auth/login_screen.dart';
 import 'package:core/core/constants/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:chat_message/screen/home/home_screen.dart';
 
 class ChatApp extends StatelessWidget {
   const ChatApp({super.key});
@@ -41,10 +42,7 @@ class _ChatSplashScreenState extends State<ChatSplashScreen> {
   void checkAuthNavigation() {
     Provider.of<AuthProvider>(context, listen: false).onCheckScreenAuth(
         auth: () {
-          /**
-           * to home screen
-           */
-          print("to home screen");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen(),));
         }, unAuth: () => toLoginScreen(context));
   }
 

@@ -1,7 +1,7 @@
 import 'package:chat_message/data/extension/string_extension.dart';
 import 'package:chat_message/data/models/auth/sing_up_data.dart';
 import 'package:chat_message/data/repository/auth_repository.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -73,7 +73,7 @@ class AuthProvider with ChangeNotifier {
 
   void onPasswordChange(String? it){
     if(it != null){
-      print("password change $it");
+      debugPrint("password change $it");
       _singUpData.password = it;
       notifyListeners();
     }
@@ -81,21 +81,28 @@ class AuthProvider with ChangeNotifier {
 
   void onSignIn({required Function() success,required Function() failure}) async {
     if(_singUpData.password == "" || _singUpData.email == ""){
-      print("password null ${_singUpData.password} :${_singUpData.email}");
+      debugPrint("password null ${_singUpData.password} :${_singUpData.email}");
       return;
     }
 
-    print("login");
-    final response = await repo.onSingIn(_singUpData);
-    if(response.user == null){
+    debugPrint('starting login');
+    try {
+      final response = await repo.onSingIn(_singUpData);
+      if(response.user == null){
+        failure();
+
+        return;
+      }
+
+      _authResponse = response;
+      notifyListeners();
+      success();
+    }
+    catch(err){
+      debugPrint('login error :$err');
       failure();
-
-      return;
     }
 
-    _authResponse = response;
-    notifyListeners();
-    success();
   }
 
 }
