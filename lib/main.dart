@@ -1,5 +1,6 @@
 import 'package:app_feature/features/chat_message/lib/screen/auth/login_screen.dart';
 import 'package:app_feature/features/chat_message/lib/screen/auth/register_screen.dart';
+import 'package:app_feature/features/chat_message/lib/screen/chat/room_screen.dart';
 import 'package:app_feature/features/chat_message/lib/screen/home/home_screen.dart';
 import 'package:app_feature/features/chat_message/lib/screen/splash/ChatSplashScreen.dart';
 import 'package:core/core/constants/colors.dart';
@@ -45,7 +46,7 @@ class ThemeWrapaper extends StatelessWidget {
   Widget build(BuildContext context) {
     // debugInvertOversizedImages = true;
     return  const MaterialApp(
-      home: ChatApp(),
+      home: RoomScreen(),
     );
   }
 }

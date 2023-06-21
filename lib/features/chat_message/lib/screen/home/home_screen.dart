@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:chat_message/widget/sliver_sized_box.dart';
 import 'package:core/core/constants/divider.dart';
 import 'package:chat_message/data/models/user/UserData.dart';
+import 'package:chat_message/data/models/chat/room/room_data.dart';
+import 'package:chat_message/screen/chat/room_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -172,7 +174,7 @@ class CreateRoom extends StatelessWidget {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.only(left: kDefault / 2),
+                              const EdgeInsets.only(left: kDefault / 2),
                               child: Text(
                                 "Chats",
                                 style: Theme.of(context)
@@ -273,12 +275,16 @@ class UserCreateChatRoomChat extends StatelessWidget {
         chatProvider.createChatRoom(
             userData: userData!,
             success: () {
-              //create room success to home content
+              ///create room success to home content
               navProvider.tabChange(0);
             },
             error: () {
-              //show dialog error
-              print("create room error");
+              ///show dialog error
+              const snackBar = SnackBar(
+                content: Text('Create Chat Room Failure!'),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             });
       },
       child: ListTile(
@@ -292,19 +298,7 @@ class UserCreateChatRoomChat extends StatelessWidget {
             height: kCircle,
           ),
         ),
-        title: const Text("Title"),
-        subtitle: const Text("subtitle"),
-        trailing: Column(
-          children: [
-            const Text("19:30"),
-            Container(
-              width: kDefault / 2,
-              height: kDefault / 2,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.blueAccent),
-            )
-          ],
-        ),
+        title:  Text(userData?.username ?? 'username'),
       ),
     );
   }
@@ -443,32 +437,7 @@ class HomeContent extends StatelessWidget {
                     return ListView.builder(
                       itemCount: snapshot.data?.length ?? 0,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(kCircle),
-                            child: Image.network(
-                              snapshot.data?[index].receiverImgUrl ??
-                                  'https://img.freepik.com/free-photo/close-up-portrait-smiling-young-woman-looking-camera_171337-17994.jpg',
-                              fit: BoxFit.cover,
-                              width: kCircle,
-                              height: kCircle,
-                            ),
-                          ),
-                          title: Text(snapshot.data?[index].receiverName ??"user name"),
-                          subtitle: Text(snapshot.data?[index].lastMessage ?? "subtitle"),
-                          trailing: Column(
-                            children: [
-                              Text(snapshot.data?[index].sendTime?.split(" ")[1].split('.')[0] ?? "19:30"),
-                              Container(
-                                width: kDefault / 2,
-                                height: kDefault / 2,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.blueAccent),
-                              )
-                            ],
-                          ),
-                        );
+                        return RoomCard(room: snapshot.data?[index],);
                       },
                     );
                   }
@@ -482,3 +451,47 @@ class HomeContent extends StatelessWidget {
     );
   }
 }
+
+class RoomCard extends StatelessWidget {
+  const RoomCard({
+    super.key, required this.room,
+  });
+
+  final RoomData? room;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const RoomScreen(),));
+      },
+      child: ListTile(
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(kCircle),
+          child: Image.network(
+            room?.receiverImgUrl ??
+                'https://img.freepik.com/free-photo/close-up-portrait-smiling-young-woman-looking-camera_171337-17994.jpg',
+            fit: BoxFit.cover,
+            width: kCircle,
+            height: kCircle,
+          ),
+        ),
+        title: Text(room?.receiverName ??"user name"),
+        subtitle: Text(room?.lastMessage ?? "subtitle"),
+        trailing: Column(
+          children: [
+            Text(room?.sendTime?.split(" ")[1].split('.')[0].substring(0,5) ?? "19:30"),
+            Container(
+              width: kDefault / 2,
+              height: kDefault / 2,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blueAccent),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+

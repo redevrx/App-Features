@@ -59,26 +59,26 @@ class ChatRepository with IChatRepository {
    try {
      final roomId = '${DateTime.now().microsecondsSinceEpoch}';
 
-     ///receiver
+     ///sender
      await _supabase.client.from(mTable.tableName)
          .insert({
        mTable.roomId: roomId,
        mTable.senderId:currentUser.uid,
        mTable.receiverId:userData.uid,
-       mTable.receiverImgUrl:userData.imageUrl,
-       mTable.receiverName:userData.username,
+       mTable.receiverImgUrl:currentUser.imageUrl,
+       mTable.receiverName:currentUser.username,
        mTable.lastMessage:'create room by ${currentUser.username}',
        mTable.timeSend:'${DateTime.now()}',
        mTable.type:'message'});
 
-     ///sender
+     ///receiver
      await _supabase.client.from(mTable.tableName)
          .insert({
        mTable.roomId: roomId,
        mTable.senderId:userData.uid,
        mTable.receiverId:currentUser.id,
-       mTable.receiverImgUrl:currentUser.imageUrl,
-       mTable.receiverName:currentUser.username,
+       mTable.receiverImgUrl:userData.imageUrl,
+       mTable.receiverName:userData.username,
        mTable.lastMessage:'create room by ${currentUser.username}',
        mTable.timeSend:'${DateTime.now()}',
        mTable.type:'message'});
@@ -105,6 +105,8 @@ class ChatRepository with IChatRepository {
     .listen((rooms) {
       final mData = rooms.map((e) => RoomData.fromJson(e)).toList();
       mData.removeWhere((element) => element.senderId == uid);
+
+
       controller..sink..add(mData);
     },onDone: (){
       controller.close();
