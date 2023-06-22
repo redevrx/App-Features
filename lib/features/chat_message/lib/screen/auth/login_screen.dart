@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/sliver_sized_box.dart';
+import 'package:chat_message/screen/home/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -263,10 +264,10 @@ class LoginView extends StatelessWidget {
                         final auth =  Provider.of<AuthProvider>(context,listen: false);
                         auth.onSignIn(success: (){
                           ///home page
-                          print("home page");
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen(),));
                         }, failure: (){
                           ///error
-                          print("error");
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login Error!")));
                         });
                        },
                        style: ElevatedButton.styleFrom(

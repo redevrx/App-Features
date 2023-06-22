@@ -12,10 +12,7 @@ import 'package:app_feature/features/chat_message/lib/provider/auth/auth_provide
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(
-    url: 'https://bhgsevlzkbiboersdors.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoZ3Nldmx6a2JpYm9lcnNkb3JzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODYyMTI4MTIsImV4cCI6MjAwMTc4ODgxMn0.0RYHwTSCk2sdqKCI3flUzd92W65cDpQZDVQSIgnsuGM'
-  );
+  await Supabase.initialize();
   runApp(const MyApp());
 }
 
@@ -46,7 +43,7 @@ class ThemeWrapaper extends StatelessWidget {
   Widget build(BuildContext context) {
     // debugInvertOversizedImages = true;
     return  const MaterialApp(
-      home: RoomScreen(),
+      home: ChatApp(),
     );
   }
 }
