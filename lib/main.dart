@@ -8,11 +8,13 @@ import 'package:core/core/themes/theme_change.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:app_feature/features/chat_message/lib/provider/auth/auth_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize();
+  await Supabase.initialize(
+    url: '',
+    anonKey: ''
+  );
   runApp(const MyApp());
 }
 
