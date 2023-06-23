@@ -39,17 +39,19 @@ dependencies:
 
 #  core shared
   core:
-    path: ./lib/features/core
+    path: ./features/core
 
 #  modules
   comic:
-    path: ./lib/features/comic
+    path: ./features/comic
   custompaint_module:
-    path: ./lib/features/custompaint_module
+    path: ./features/custompaint_module
   chat_bot:
-    path: ./lib/features/chat_bot
+    path: ./features/chat_bot
   chat_message:
-    path: ./lib/features/chat_message
+    path: ./features/chat_message
+  task_manager:
+    path: ./features/task_manager
 
 dev_dependencies:
   flutter_test:

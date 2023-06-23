@@ -44,7 +44,7 @@ packages:
   chat_bot:
     dependency: "direct main"
     description:
-      path: "lib/features/chat_bot"
+      path: "features/chat_bot"
       relative: true
     source: path
     version: "0.0.1"
@@ -59,7 +59,7 @@ packages:
   chat_message:
     dependency: "direct main"
     description:
-      path: "lib/features/chat_message"
+      path: "features/chat_message"
       relative: true
     source: path
     version: "0.0.1"
@@ -82,14 +82,14 @@ packages:
   comic:
     dependency: "direct main"
     description:
-      path: "lib/features/comic"
+      path: "features/comic"
       relative: true
     source: path
     version: "0.0.1"
   core:
     dependency: "direct main"
     description:
-      path: "lib/features/core"
+      path: "features/core"
       relative: true
     source: path
     version: "0.0.1"
@@ -112,7 +112,7 @@ packages:
   custompaint_module:
     dependency: "direct main"
     description:
-      path: "lib/features/custompaint_module"
+      path: "features/custompaint_module"
       relative: true
     source: path
     version: "0.0.1"
@@ -568,6 +568,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.3"
+  task_manager:
+    dependency: "direct main"
+    description:
+      path: "features/task_manager"
+      relative: true
+    source: path
+    version: "0.0.1"
   term_glyph:
     dependency: transitive
     description:
@@ -769,5 +776,5 @@ packages:
     source: hosted
     version: "1.1.1"
 sdks:
-  dart: ">=3.0.3 <4.0.0"
+  dart: ">=3.0.5 <4.0.0"
   flutter: ">=3.7.0-0"
