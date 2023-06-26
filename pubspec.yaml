@@ -52,6 +52,8 @@ dependencies:
     path: ./features/chat_message
   task_manager:
     path: ./features/task_manager
+  dream_home:
+    path: ./features/dream_home
 
 dev_dependencies:
   flutter_test:
