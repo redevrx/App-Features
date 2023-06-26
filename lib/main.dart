@@ -1,4 +1,3 @@
-import 'package:chat_message/screen/splash/ChatSplashScreen.dart';
 import 'package:core/core/constants/colors.dart';
 import 'package:core/core/themes/theme_change.dart';
 import 'package:flutter/material.dart';
