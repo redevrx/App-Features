@@ -3,7 +3,6 @@ import 'package:core/core/themes/theme_change.dart';
 import 'package:dream_home/screen/dream_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/screen/task_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

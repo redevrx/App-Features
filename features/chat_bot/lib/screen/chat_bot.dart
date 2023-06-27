@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:chat_bot/model/message_model.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:core/core/constants/divider.dart';
@@ -144,7 +143,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                       const Offset(0,0),
                       blurRadius: kDefault * 1)
                 ]),
-            child: Text(messages[index].message.replaceAll('/[a-zA-Z0-9\b\0 ]/;', ''),maxLines: 12,),
+            child: Text(messages[index].message.replaceAll('/[a-zA-Z0-9\b0 ]/;', ''),maxLines: 12,),
           )
         ],
       ),
@@ -238,14 +237,14 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                   "ChatGPT",
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1
+                      .titleMedium
                       ?.copyWith(color: Colors.black),
                 ),
                 Text(
                   "Online",
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2
+                      .titleSmall
                       ?.copyWith(color: Colors.green),
                 ),
               ],

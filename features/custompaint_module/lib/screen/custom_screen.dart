@@ -1,4 +1,3 @@
-import 'package:custompaint_module/screen/progress.dart';
 import 'package:flutter/material.dart';
 
 class CustomScreen extends StatelessWidget {
@@ -23,7 +22,7 @@ class CustomScreen extends StatelessWidget {
           // ),
           CustomPaint(
             painter: MyNavBar(),
-            child: Container(width: double.maxFinite,height: 56,),
+            child: const SizedBox(width: double.maxFinite,height: 56,),
           )
         ],
       ),

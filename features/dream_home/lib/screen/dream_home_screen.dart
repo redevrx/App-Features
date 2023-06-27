@@ -1,24 +1,10 @@
+import 'package:dream_home/data/model/item_data.dart';
+import 'package:dream_home/screen/home_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core/constants/divider.dart';
 
-class DreamHomeScreen extends StatefulWidget {
+class DreamHomeScreen extends StatelessWidget {
   const DreamHomeScreen({super.key});
-
-  @override
-  State<DreamHomeScreen> createState() => _DreamHomeScreenState();
-}
-
-class _DreamHomeScreenState extends State<DreamHomeScreen> {
-
-  late ScrollController _controller;
-  double width = 0;
-  double height = 0;
-
-  @override
-  void initState() {
-   _controller = ScrollController();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +30,7 @@ class _DreamHomeScreenState extends State<DreamHomeScreen> {
                             .textTheme
                             .displaySmall
                             ?.copyWith(
+                          fontSize: 42,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                         textAlign: TextAlign.start),
@@ -93,136 +80,148 @@ class _DreamHomeScreenState extends State<DreamHomeScreen> {
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: kDefault),
                 child: ListView.builder(
-                  controller: _controller,
-                  itemExtent: 330,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 2,
+                  itemCount: items.length,
                   itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 750),
-                          width:  size.width * .7,
-                          height: size.height * .4,
-                          padding: const EdgeInsets.all(kDefault),
-                          margin:
-                              const EdgeInsets.symmetric(horizontal: kDefault),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(kDefault),
-                              boxShadow: [kShadow],
-                              image: const DecorationImage(
-                                  image: NetworkImage(
-                                      'https://www.grollohomes.com.au/wp-content/uploads/2020/05/Grollo-Belmore-140.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-
-                        ///ratting
-                        Positioned(
-                          right: kDefault * 1.2,
-                          top: kDefault,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: kDefault, vertical: kDefault / 2),
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => HomeDetailScreen(item: items[index],index: index,),
+                          transitionDuration: const Duration(milliseconds: 350),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) => child,
+                        ));
+                      },
+                      child: Stack(
+                        children: [
+                          Hero(
+                            tag: items[index].url,
+                            child: Container(
+                            width:  size.width * .7,
+                            height: size.height * .4,
+                            padding: const EdgeInsets.all(kDefault),
+                            margin:
+                            const EdgeInsets.symmetric(horizontal: kDefault),
                             decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(.83),
-                                borderRadius: BorderRadius.circular(kDefault)),
-                            child: const Column(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(kDefault),
+                                boxShadow: [kShadow],
+                                image:  DecorationImage(
+                                    image: NetworkImage(
+                                        items[index].url),
+                                    fit: BoxFit.cover)),
+                          ),),
+
+                          ///ratting
+                          Positioned(
+                            right: kDefault * 1.2,
+                            top: kDefault,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: kDefault, vertical: kDefault / 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(.83),
+                                  borderRadius: BorderRadius.circular(kDefault)),
+                              child:  Column(
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.yellowAccent,
+                                  ),
+                                  Text(items[index].ratting)
+                                ],
+                              ),
+                            )
+                          ),
+
+                          ///price
+                          Positioned.fill(
+                            top: size.height * .3,
+                            left: kDefault * 2,
+                            right: kDefault * 2,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.yellowAccent,
-                                ),
-                                Text('9.0')
+                               SingleChildScrollView(
+                                 child:  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: [
+                                     Text(
+                                       items[index].price,
+                                       style: Theme.of(context)
+                                           .textTheme
+                                           .titleLarge
+                                           ?.copyWith(
+                                           color: Colors.white,
+                                           fontWeight: FontWeight.bold),
+                                     ),
+                                     Text(
+                                       items[index].per,
+                                       style: Theme.of(context)
+                                           .textTheme
+                                           .titleSmall
+                                           ?.copyWith(
+                                           color: Colors.white,
+                                           fontWeight: FontWeight.bold),
+                                     )
+                                   ],
+                                 ),
+                               ),
+                                Hero(tag: '${items[index].hashCode}', child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      elevation: kDefault / 2,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(kDefault))),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(kDefault),
+                                    child: Text(
+                                      'AR View',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                ))
                               ],
                             ),
                           ),
-                        ),
-
-                        ///price
-                        Positioned.fill(
-                          top: size.height * .3,
-                          left: kDefault * 2,
-                          right: kDefault * 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "\$1999",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "Per Mouth",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    elevation: kDefault / 2,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(kDefault))),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(kDefault),
-                                  child: Text(
-                                    'AR View',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        ///home info
-                        Positioned.fill(
-                          top: size.height * .26,
-                          right: kDefault * 2,
-                          left: kDefault * 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text("Naked Snake",style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                              Row(
+                          ///home info
+                          Positioned.fill(
+                            top: size.height * .26,
+                            right: kDefault * 2,
+                            left: kDefault * 2,
+                            child: SingleChildScrollView(
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const Icon(Icons.location_on_outlined,color: Colors.white,),
-                                  Text("Thai",style: Theme.of(context)
+                                  Text(items[index].name,style: Theme.of(context)
                                       .textTheme
-                                      .titleSmall
+                                      .titleLarge
                                       ?.copyWith(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold))
+                                      fontWeight: FontWeight.bold)),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Icon(Icons.location_on_outlined,color: Colors.white,),
+                                      Text(items[index].location,style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold))
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   },
                 ),
@@ -254,9 +253,9 @@ class _DreamHomeScreenState extends State<DreamHomeScreen> {
                   padding: EdgeInsets.symmetric(vertical: kDefault / 1.2),
                   child: Icon(Icons.home_outlined),
                 )),
-            Icon(Icons.save_as),
-            Icon(Icons.mark_chat_read),
-            Icon(Icons.person)
+            const Icon(Icons.save_as),
+            const Icon(Icons.mark_chat_read),
+            const Icon(Icons.person)
           ],
         ),
       ),
@@ -268,7 +267,7 @@ class _DreamHomeScreenState extends State<DreamHomeScreen> {
       backgroundColor: Colors.white,
       elevation: 0,
       bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: Padding(
             padding: const EdgeInsets.all(kDefault),
             child: Row(

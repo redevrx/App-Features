@@ -137,12 +137,12 @@ class HomeScreen extends StatelessWidget {
                     Text("Good afternoon",
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle2
+                            .titleSmall
                             ?.copyWith(color: Colors.grey)),
                     Text("Mira Suxi",
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(color: Colors.black))
                   ],
                 )

@@ -1,5 +1,4 @@
 import 'package:core/core/constants/divider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SocialButton extends StatelessWidget {

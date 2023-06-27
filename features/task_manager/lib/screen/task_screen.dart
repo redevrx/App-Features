@@ -2,12 +2,6 @@ import 'package:core/core/constants/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/component/home_page.dart';
 import 'package:task_manager/component/profile_page.dart';
-import 'package:task_manager/component/widget/circle4_point.dart';
-import 'package:task_manager/component/widget/date_card.dart';
-import 'package:task_manager/data/model/date_data.dart';
-import 'package:task_manager/data/model/task_data.dart';
-
-import '../component/widget/task_card.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
