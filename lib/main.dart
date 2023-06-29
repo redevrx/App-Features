@@ -1,7 +1,7 @@
 import 'package:core/core/constants/colors.dart';
 import 'package:core/core/themes/theme_change.dart';
-import 'package:dream_home/screen/dream_home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:meeting_room/screen/meeting_room_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -40,7 +40,7 @@ class ThemeWrapaper extends StatelessWidget {
   Widget build(BuildContext context) {
     // debugInvertOversizedImages = true;
     return  const MaterialApp(
-      home: DreamHomeScreen(),
+      home: MeetingRoomScreen(),
     );
   }
 }

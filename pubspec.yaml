@@ -54,6 +54,8 @@ dependencies:
     path: ./features/task_manager
   dream_home:
     path: ./features/dream_home
+  meeting_room:
+    path: ./features/meeting_room
 
 dev_dependencies:
   flutter_test:
