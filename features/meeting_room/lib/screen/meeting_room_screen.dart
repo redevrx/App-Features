@@ -1,6 +1,5 @@
 import 'package:core/core/constants/divider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:meeting_room/component/widget/metting_card.dart';
 import 'package:meeting_room/component/widget/sliver_size_box.dart';
