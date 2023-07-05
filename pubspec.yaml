@@ -56,6 +56,10 @@ dependencies:
     path: ./features/dream_home
   meeting_room:
     path: ./features/meeting_room
+  animated_navbar:
+    path: ./features/animated_navbar
+  login_ui:
+    path: ./features/login_ui
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,8 @@
+import 'package:animated_navbar/screen/animated_navbar_screen.dart';
 import 'package:core/core/constants/colors.dart';
 import 'package:core/core/themes/theme_change.dart';
 import 'package:flutter/material.dart';
+import 'package:login_ui/screen/login_screen.dart';
 import 'package:meeting_room/screen/meeting_room_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +42,7 @@ class ThemeWrapaper extends StatelessWidget {
   Widget build(BuildContext context) {
     // debugInvertOversizedImages = true;
     return  const MaterialApp(
-      home: MeetingRoomScreen(),
+      home: LoginScreen(),
     );
   }
 }
