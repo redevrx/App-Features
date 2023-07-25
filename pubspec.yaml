@@ -60,6 +60,8 @@ dependencies:
     path: ./features/animated_navbar
   login_ui:
     path: ./features/login_ui
+  golive:
+    path: ./features/golive
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +87,6 @@ flutter:
   assets:
 #    - assets/icons/
 #    - assets/images/
-    - assets/chat/icons/
     - assets/chat/images/
 
   fonts:
