@@ -4,6 +4,7 @@ import 'package:core/core/constants/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:golive/data/models/chip_text.dart';
 import 'package:golive/data/models/preview_profile.dart';
+import 'package:golive/screen/video_live_screen.dart';
 
 class GoLiveScreen extends StatelessWidget {
   const GoLiveScreen({super.key});
@@ -108,7 +109,12 @@ class GoLiveScreen extends StatelessWidget {
                         childAspectRatio: .8,
                       ),
                       itemBuilder: (context, index) {
-                        return LiveCard(size: size);
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const VideoLiveScreen(),));
+                          },
+                          child: LiveCard(size: size),
+                        );
                       },
                     )
                 ),
