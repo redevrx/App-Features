@@ -4,6 +4,7 @@ import 'package:core/core/constants/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:golive/data/models/chip_text.dart';
 import 'package:golive/data/models/preview_profile.dart';
+import 'package:golive/screen/profile_detail_screen.dart';
 import 'package:golive/screen/video_live_screen.dart';
 
 class GoLiveScreen extends StatelessWidget {
@@ -134,13 +135,18 @@ class GoLiveScreen extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical:kDefault / 2,horizontal: kDefault * 2),
                     color: Colors.transparent,
-                    child: const Row(
+                    child:  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.home,color: Colors.white,size: 30,),
-                        Icon(Icons.people_outline_sharp,color: Colors.redAccent,size: 30,),
-                        Icon(Icons.gamepad,color: Colors.white,size: 30,),
-                        Icon(Icons.settings,color: Colors.white,size: 30,),
+                        const Icon(Icons.home,color: Colors.white,size: 30,),
+                       GestureDetector(
+                         onTap: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileDetailScreen(),));
+                         },
+                         child:  const Icon(Icons.people_outline_sharp,color: Colors.redAccent,size: 30,),
+                       ),
+                        const Icon(Icons.gamepad,color: Colors.white,size: 30,),
+                        const Icon(Icons.settings,color: Colors.white,size: 30,),
                       ],
                     ),
                   ),
