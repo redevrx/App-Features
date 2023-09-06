@@ -4,6 +4,7 @@ import 'package:encrypt/encrypt.dart' as et;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutorial/screen/week1/home_screen.dart';
+import 'package:tiktok/screen/home/tiktok_home_screen.dart';
 
 void main() async {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -11,9 +12,7 @@ void main() async {
   //   url: '',
   //   anonKey: ''
   // );
-  //runApp(const MyApp());
-
-  testCode();
+  runApp(const MyApp());
 }
 
 void testCode() {
@@ -53,7 +52,7 @@ class ThemeWrapaper extends StatelessWidget {
   Widget build(BuildContext context) {
     // debugInvertOversizedImages = true;
     return  const MaterialApp(
-      home: HomeScreen(),
+      home: TiktokHomeScreen(),
     );
   }
 }
