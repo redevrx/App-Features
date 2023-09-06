@@ -51,6 +51,8 @@ import 'package:http/http.dart' as http;
 //
 // }
 
+import 'package:encrypt/encrypt.dart' as et;
+
 class Product {
   List<ProductElement> products;
   int total;
@@ -146,16 +148,24 @@ class LoginManager {
 
 
 void main(){
-  final mToken = '1213213';
-
-  final t1 = LoginManager.instance;
-  final t2 = LoginManager.instance;
-
-  t1.token = mToken;
-
-  print('token :${t2.token}');
+testCode();
 }
 
+
+void testCode() {
+  const token = "iajsodijaosijdoisajo.iassdsdsdsjd.sdsasdasds";
+  final mKey = "023749032${token.split(".")[1]}".substring(0,16);
+  final iv = et.IV.fromUtf8("023749032${token.split(".")[0]}".substring(0,16));
+  final key = et.Key.fromUtf8(mKey);
+
+  final encrypter = et.Encrypter(et.AES(key,mode:  et.AESMode.cbc));
+  final encrypted = encrypter.encrypt("end code from flutter",iv: iv);
+  print("${encrypted.base64}");
+  print(mKey);
+
+
+  final d = encrypter.decrypt64("E1vMYfquCSIbiM5dm9erELIoOuDiQEjVoCnapygJbP4=",iv: iv);
+}
 
 
 

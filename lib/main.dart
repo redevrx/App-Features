@@ -1,23 +1,29 @@
-import 'package:animated_navbar/screen/animated_navbar_screen.dart';
-import 'package:comic/screens/shopui_screen.dart';
 import 'package:core/core/constants/colors.dart';
 import 'package:core/core/themes/theme_change.dart';
-import 'package:dream_home/screen/dream_home_screen.dart';
+import 'package:encrypt/encrypt.dart' as et;
 import 'package:flutter/material.dart';
-import 'package:golive/screen/go_live_screen.dart';
-import 'package:login_ui/screen/login_screen.dart';
-import 'package:meeting_room/screen/meeting_room_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/screen/task_screen.dart';
 import 'package:tutorial/screen/week1/home_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
   // await Supabase.initialize(
   //   url: '',
   //   anonKey: ''
   // );
-  runApp(const MyApp());
+  //runApp(const MyApp());
+
+  testCode();
+}
+
+void testCode() {
+  const token = "iajsodijaosijdoisajo.iassdsdsdsjd.sdsasdasds";
+  final key = et.Key.fromUtf8("023749032${token.split(".")[1]}");
+  final encrypter = et.Encrypter(et.AES(key, mode: et.AESMode.cfb64));
+  final encrypted = encrypter.encrypt("data");
+  print(encrypted.base64);
+
+
 }
 
 class MyApp extends StatelessWidget {
