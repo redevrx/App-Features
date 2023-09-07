@@ -94,6 +94,7 @@ flutter:
 #    - assets/icons/
 #    - assets/images/
     - assets/chat/images/
+    - assets/tiktok/
 
   fonts:
     - family: Gordita
