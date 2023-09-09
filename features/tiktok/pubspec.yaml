@@ -1,4 +1,4 @@
-name: tutorial
+name: tiktok
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
@@ -11,7 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  http: ^1.1.0
+  core:
+    path: ../core
+  cached_network_image: ^3.2.3
+  video_player: ^2.7.1
+  provider: ^6.0.5
+  supabase_flutter: ^1.10.16
 
 dev_dependencies:
   flutter_test:

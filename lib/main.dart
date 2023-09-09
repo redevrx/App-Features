@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutorial/screen/week1/home_screen.dart';
 import 'package:tiktok/screen/home/tiktok_home_screen.dart';
+import 'package:tutorial/screen/work_shop2/work_shop2.dart';
 
 void main() async {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +53,7 @@ class ThemeWrapaper extends StatelessWidget {
   Widget build(BuildContext context) {
     // debugInvertOversizedImages = true;
     return  const MaterialApp(
-      home: TiktokHomeScreen(),
+      home: WorkShop2(),
     );
   }
 }
