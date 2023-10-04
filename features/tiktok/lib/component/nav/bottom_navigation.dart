@@ -24,6 +24,7 @@ class TiktokBottomNavigation extends StatelessWidget {
       width: double.infinity,
       color: Colors.black,
       child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //nav item

@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^1.1.0
   encrypt: ^5.0.1
+  provider: ^6.0.5
 
 #  core shared
   core:
@@ -68,6 +69,8 @@ dependencies:
     path: ./features/tutorial
   tiktok:
     path: ./features/tiktok
+  preload_image:
+    path: ./features/preload_image
 
 dev_dependencies:
   flutter_test:

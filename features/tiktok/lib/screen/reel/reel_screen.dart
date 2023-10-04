@@ -1,25 +1,97 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core/constants/divider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok/data/extension/size_response.dart';
+import 'package:video_player/video_player.dart';
 
-class ReelScreen extends StatelessWidget {
+import '../../component/animation/animation_rotate.dart';
+
+class Player {
+  final VideoPlayerController controller;
+  bool isVertical;
+
+  Player({required this.controller, required this.isVertical});
+}
+
+class ReelScreen extends StatefulWidget {
   const ReelScreen({super.key});
 
+  @override
+  State<ReelScreen> createState() => _ReelScreenState();
+}
+
+class _ReelScreenState extends State<ReelScreen> {
+  ///
+  Map<int, Player?> mapController = Map.of({});
+  int currentFocus = 0;
+
+  @override
+  void initState() {
+    final controller = VideoPlayerController.networkUrl(Uri.parse(urls[0]));
+    mapController[0] = Player(controller: controller, isVertical: false);
+    controller.initialize().then((_) {
+      mapController[0]?.controller.play();
+    });
+
+    mapController[1] = Player(
+        controller: VideoPlayerController.networkUrl(Uri.parse(urls[1])),
+        isVertical: false);
+    mapController[1]?.controller.initialize().then((_) => null);
+    super.initState();
+  }
+
+  ///preload video
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         ///video widget
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: CupertinoColors.systemBlue,
-          child: const Text("video content"),
+        PageView.builder(
+          scrollDirection: Axis.vertical,
+          onPageChanged: (i) async {
+            ///preload-video
+            if (i > currentFocus) {
+              ///Next video
+              if (i - 1 >= 0) {
+                mapController[i - 1]?.controller.pause();
+              }
+              if (i - 2 >= 0) {
+                mapController[i - 2]?.controller.dispose();
+              }
+
+              mapController[i]?.controller.play();
+
+              if (i + 1 < urls.length) {
+                mapController[i + 1] = Player(
+                    controller: VideoPlayerController.networkUrl(
+                        Uri.parse(urls[i + 1])),
+                    isVertical: false);
+                await mapController[i + 1]?.controller.initialize();
+                ;
+              }
+            } else {
+              ///Previous
+              mapController[i + 1]?.controller.pause();
+              mapController[i + 2]?.controller.dispose();
+
+              mapController[i]?.controller.play();
+
+              if (i - 1 >= 0) {
+                mapController[i - 1] = Player(
+                    controller: VideoPlayerController.networkUrl(
+                        Uri.parse(urls[i - 1])),
+                    isVertical: false);
+                await mapController[i - 1]?.controller.initialize();
+              }
+            }
+            currentFocus = i;
+          },
+          itemCount: urls.length,
+          itemBuilder: (_, index) => TiktokVideoPlayer(
+              mController: mapController[index]!.controller,
+              isVertical: mapController[index]!.isVertical,
+              url: urls[index]),
         ),
 
         /// text title
@@ -66,7 +138,8 @@ class ReelScreen extends StatelessWidget {
               Expanded(
                   flex: 3,
                   child: Container(
-                    margin: const EdgeInsets.only(left: kDefault,bottom: kDefault / 2),
+                    margin: const EdgeInsets.only(
+                        left: kDefault, bottom: kDefault / 2),
                     height: size.toHeight(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -95,10 +168,14 @@ class ReelScreen extends StatelessWidget {
                         const SizedBox(
                           height: kDefault / 2,
                         ),
+
                         ///song name
                         Row(
                           children: [
-                            const Icon(Icons.music_note_outlined,color: Colors.white,),
+                            const Icon(
+                              Icons.music_note_outlined,
+                              color: Colors.white,
+                            ),
                             Text(
                               "Snake Rock @asopdkpaskp",
                               style: Theme.of(context)
@@ -208,35 +285,81 @@ class ReelScreen extends StatelessWidget {
   }
 }
 
-class TiktokAnimationRotate extends StatefulWidget {
-  const TiktokAnimationRotate({super.key, required this.widget});
+class TiktokVideoPlayer extends StatefulWidget {
+  const TiktokVideoPlayer(
+      {super.key,
+      required this.url,
+      required this.mController,
+      required this.isVertical});
 
-  final Widget widget;
+  final String url;
+  final VideoPlayerController mController;
+  final bool isVertical;
+
   @override
-  State<TiktokAnimationRotate> createState() => _TiktokAnimationRotateState();
+  State<TiktokVideoPlayer> createState() => _TiktokVideoPlayerState();
 }
 
-class _TiktokAnimationRotateState extends State<TiktokAnimationRotate>
-    with SingleTickerProviderStateMixin {
-  late AnimationController mController;
+class _TiktokVideoPlayerState extends State<TiktokVideoPlayer>
+    with WidgetsBindingObserver {
+  late Widget videoPlayer;
+  bool videoVertical = false;
 
   @override
   void initState() {
-    mController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    WidgetsBinding.instance.addObserver(this);
 
-    mController.repeat();
+    videoPlayer = VideoPlayer(widget.mController);
+    widget.mController.setLooping(true);
+
+    videoVertical = widget.mController.value.size.height >
+        widget.mController.value.size.width;
     super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.paused:
+        widget.mController.pause();
+        break;
+      case AppLifecycleState.resumed:
+        widget.mController.play();
+        break;
+      default:
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: mController,
-      builder: (context, child) => Transform.rotate(
-        angle: pi * 2 * mController.value,
-        child: widget.widget,
-      ),
-    );
+    return videoVertical
+        ? videoPlayer
+        : Center(
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: videoPlayer,
+            ),
+          );
   }
 }
+
+final urls = [
+  'https://player.vimeo.com/external/447226472.sd.mp4?s=64fc9c7113b605e6179e26d9fc0550972079f665&profile_id=164&oauth2_token_id=57447761',
+  'https://player.vimeo.com/external/598353330.sd.mp4?s=c4f03a5c139bae9deba8aa22d8f09d0f265d7c9e&profile_id=164&oauth2_token_id=57447761',
+  'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  'https://player.vimeo.com/external/463902394.sd.mp4?s=e51f3979e6629a9309d6299f46e94957bd5a647d&profile_id=164&oauth2_token_id=57447761',
+  'https://player.vimeo.com/external/479267619.sd.mp4?s=492573ed779abde3ed7cbd2b62637a90da57e35f&profile_id=165&oauth2_token_id=57447761',
+  'https://player.vimeo.com/external/427711576.hd.mp4?s=c2f19e5f0d59ef5fc014281f3a953e0cd333e4b2&profile_id=174&oauth2_token_id=57447761',
+  'https://player.vimeo.com/external/427709260.hd.mp4?s=78554dd91d719fea13a8e63da76a0791acd9267c&profile_id=174&oauth2_token_id=57447761',
+  'https://player.vimeo.com/external/450811642.sd.mp4?s=1754b26b060206d3c1e7ff8e761c3b7970ffef34&profile_id=165&oauth2_token_id=57447761',
+  'https://player.vimeo.com/external/456094264.sd.mp4?s=13074aaa79fd9d083a99a7556b7e0fe3adcb1a1d&profile_id=165&oauth2_token_id=57447761',
+  'https://player.vimeo.com/external/456094160.sd.mp4?s=9ef8b9818f3dfde399c37922954a4604f0986569&profile_id=165&oauth2_token_id=57447761',
+];

@@ -1,18 +1,16 @@
+import 'package:chat_message/provider/auth/auth_provider.dart';
+import 'package:chat_message/provider/nav/nav_provider.dart';
 import 'package:core/core/constants/colors.dart';
 import 'package:core/core/themes/theme_change.dart';
 import 'package:encrypt/encrypt.dart' as et;
 import 'package:flutter/material.dart';
+import 'package:preload_image/screen/preload_image_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:tutorial/screen/week1/home_screen.dart';
-import 'package:tiktok/screen/home/tiktok_home_screen.dart';
-import 'package:tutorial/screen/work_shop2/work_shop2.dart';
+import 'package:tiktok/screen/tiktok_app.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  // await Supabase.initialize(
-  //   url: '',
-  //   anonKey: ''
-  // );
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -22,8 +20,6 @@ void testCode() {
   final encrypter = et.Encrypter(et.AES(key, mode: et.AESMode.cfb64));
   final encrypted = encrypter.encrypt("data");
   print(encrypted.base64);
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +33,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: bgColor,
           primarySwatch: Colors.blue,
           textTheme:
-          const TextTheme(bodyMedium: TextStyle(color: Colors.black54)),
+              const TextTheme(bodyMedium: TextStyle(color: Colors.black54)),
           fontFamily: "Gordita")),
       child: const ThemeWrapaper(),
     );
@@ -52,12 +48,8 @@ class ThemeWrapaper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // debugInvertOversizedImages = true;
-    return  const MaterialApp(
-      home: WorkShop2(),
+    return const MaterialApp(
+      home: PreloadImageScreen(),
     );
   }
 }
-
-
-
-

@@ -29,20 +29,22 @@ class TiktokNavItemWidget extends StatelessWidget {
           icon == null
               ? Image.asset(
             '$imgPath',
-            fit: BoxFit.cover,
+            width: 40,
+            height: 40,
+            fit: BoxFit.contain,
           )
               : Icon(
             icon,
             color: isSelect ? Colors.white : Colors.grey,
-            size: size.toHeight(3),
+            size: 28,
           ),
           label.isNotEmpty
               ? Text(
             label,
             style: Theme.of(context)
                 .textTheme
-                .bodyMedium
-                ?.copyWith(color: isSelect ? Colors.white : Colors.grey,),
+                .bodySmall
+                ?.copyWith(color: isSelect ? Colors.white : Colors.grey,fontSize: 9),
           )
               : const SizedBox()
         ],
